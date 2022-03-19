@@ -1153,7 +1153,7 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
                           }
                           setState(() {});
                         });
-                      }, 'Apakah kamu yakin menolak usulan program ini ?');
+                      }, 'Apakah kamu yakin menolak proposal program ini ?');
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Colors.white,
@@ -1463,19 +1463,36 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
             ),
             detailFileProposal(widget.proposalModel!),
             (widget.proposalModel!.statusUsulan == 'Usulan Baru' &&
-                    widget.currentPage == 'usulan' &&
-                    roleID == '1')
+                    widget.currentPage == 'usulan')
                 ? Column(
                     children: [
                       const SizedBox(
                         height: 40,
                       ),
-                      catatanSubmitUsulan(),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      buttonAction(),
-                      buttonActionDelete(),
+                      (widget.proposalModel!.ormawaID == '2' && roleID == '1')
+                          ? Column(
+                              children: [
+                                catatanSubmitUsulan(),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                buttonAction(),
+                                buttonActionDelete(),
+                              ],
+                            )
+                          : const SizedBox(),
+                      (widget.proposalModel!.ormawaID != '2' && roleID == '2')
+                          ? Column(
+                              children: [
+                                catatanSubmitUsulan(),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                buttonAction(),
+                                buttonActionDelete(),
+                              ],
+                            )
+                          : const SizedBox(),
                       const SizedBox(
                         height: 30,
                       ),
@@ -1497,7 +1514,8 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
                     : (widget.proposalModel!.statusProposal == 'Usulan Baru' &&
                             widget.currentPage == 'proposal' &&
                             widget.proposalModel!.pathFile != '-' &&
-                            roleID == '1')
+                            roleID == '2' &&
+                            widget.proposalModel!.ormawaID != '2')
                         ? Column(
                             children: [
                               const SizedBox(
@@ -1509,9 +1527,7 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
                               ),
                             ],
                           )
-                        : (widget.proposalModel!.statusProposal ==
-                                    'Proposal Diterima BEM' &&
-                                widget.currentPage == 'proposal' &&
+                        : (widget.currentPage == 'proposal' &&
                                 widget.proposalModel!.pathFile != '-' &&
                                 roleID == '4')
                             ? Column(
