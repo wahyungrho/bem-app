@@ -2,14 +2,14 @@ part of 'shared.dart';
 
 class BASEURL {
   // development
-  // static String baseURL = "http://192.168.17.73/api-bem/api";
-  // static String baseURLAssets = "http://192.168.17.73/api-bem/assets";
+  static String baseURL = "http://192.168.43.30/api-bem/api";
+  static String baseURLAssets = "http://192.168.43.30/api-bem/assets";
 
   // production
-  static String baseURL =
-      "https://ghaisan-alfarizqistore.000webhostapp.com/api";
-  static String baseURLAssets =
-      "https://ghaisan-alfarizqistore.000webhostapp.com/assets";
+  // static String baseURL =
+  //     "https://ghaisan-alfarizqistore.000webhostapp.com/api";
+  // static String baseURLAssets =
+  //     "https://ghaisan-alfarizqistore.000webhostapp.com/assets";
 
   static String apiViewProposal = "$baseURLAssets/proposal/";
   static String apiViewLpjKegiatan = "$baseURLAssets/lpj_kegiatan/";

@@ -4,6 +4,7 @@ class ProposalModel {
   final String? prokerID;
   final String? fullname;
   final String? nameOrmawa;
+  final String? ormawaID;
   final String? tema;
   final String? description;
   final String? date;
@@ -26,6 +27,7 @@ class ProposalModel {
     this.prokerID,
     this.fullname,
     this.nameOrmawa,
+    this.ormawaID,
     this.tema,
     this.description,
     this.date,
@@ -50,6 +52,7 @@ class ProposalModel {
       prokerID: json['prokerID'],
       fullname: json['fullname'],
       nameOrmawa: json['nameOrmawa'],
+      ormawaID: json['ormawaID'],
       tema: json['tema'],
       description: json['description'],
       date: json['date'],
