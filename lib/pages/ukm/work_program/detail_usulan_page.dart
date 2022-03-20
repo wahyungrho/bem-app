@@ -19,10 +19,12 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
   bool isLoading2 = false;
 
   String roleID = 'id';
+  String userID = 'id';
 
   getPreference() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     roleID = sharedPreferences.getString(UserPrefProfile.idRole)!;
+    userID = sharedPreferences.getString(UserPrefProfile.idUser)!;
     setState(() {});
   }
 
@@ -1569,7 +1571,7 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
                                       const SizedBox(
                                         height: 30,
                                       ),
-                                      (roleID == '2' || roleID == '2')
+                                      (widget.proposalModel!.userID == userID)
                                           ? buttonActionLPJ()
                                           : const SizedBox(),
                                     ],

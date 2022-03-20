@@ -3,6 +3,7 @@ part of 'models.dart';
 class ProposalModel {
   final String? prokerID;
   final String? fullname;
+  final String? userID;
   final String? nameOrmawa;
   final String? ormawaID;
   final String? tema;
@@ -26,6 +27,7 @@ class ProposalModel {
   ProposalModel({
     this.prokerID,
     this.fullname,
+    this.userID,
     this.nameOrmawa,
     this.ormawaID,
     this.tema,
@@ -51,6 +53,7 @@ class ProposalModel {
     return ProposalModel(
       prokerID: json['prokerID'],
       fullname: json['fullname'],
+      userID: json['userID'],
       nameOrmawa: json['nameOrmawa'],
       ormawaID: json['ormawaID'],
       tema: json['tema'],

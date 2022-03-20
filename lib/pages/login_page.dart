@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: TextField(
           controller: emailController,
+          keyboardType: TextInputType.emailAddress,
           style: mediumFontStyle.copyWith(fontSize: 18, color: greyColor),
           decoration: InputDecoration(
               icon: Container(
@@ -131,6 +132,12 @@ class _LoginPageState extends State<LoginPage> {
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(primary: mainColor),
             onPressed: () {
+              FocusScopeNode currentFocus = FocusScope.of(context);
+
+              if (!currentFocus.hasPrimaryFocus) {
+                currentFocus.unfocus();
+              }
+
               setState(() {
                 isLoading = true;
               });
