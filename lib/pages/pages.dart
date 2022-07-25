@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:app_bem/main_page.dart';
 import 'package:app_bem/models/models.dart';
+import 'package:app_bem/models/notulen_model.dart';
 import 'package:app_bem/services/services.dart';
 import 'package:app_bem/shared/shared.dart';
 import 'package:app_bem/widgets/widgets.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -17,6 +20,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path/path.dart' as path;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 part 'login_page.dart';
 part 'register_page.dart';
@@ -32,6 +36,9 @@ part 'bem/meetings/meeting_page.dart';
 part 'bem/meetings/add_meeting_page.dart';
 part 'bem/meetings/detail_meeting_page.dart';
 part 'bem/meetings/update_meeting_page.dart';
+part 'bem/meetings/form_meeting_end_page.dart';
+part 'bem/notulen/notulen_page.dart';
+part 'bem/notulen/detail_notulen.dart';
 part 'bem/events/internal_event_page.dart';
 part 'bem/events/eksternal_event_page.dart';
 part 'bem/events/add_event_page.dart';

@@ -230,7 +230,32 @@ class DetailMeetingPage extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              (roleID == '1') ? buttonAction() : const SizedBox(),
+              (roleID == '1')
+                  ? (meetingModel!.status != 'Selesai')
+                      ? Column(
+                          children: [
+                            buttonAction(),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: 40,
+                              child: OutlinedButton(
+                                  onPressed: () {
+                                    Get.to(FormMeetingEndPage(
+                                      meetingModel: meetingModel!,
+                                    ));
+                                  },
+                                  child: Text(
+                                    "Rapat Selesai",
+                                    style: mediumFontStyle,
+                                  )),
+                            )
+                          ],
+                        )
+                      : const SizedBox()
+                  : const SizedBox(),
             ],
           )),
     );

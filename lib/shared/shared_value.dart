@@ -2,14 +2,13 @@ part of 'shared.dart';
 
 class BASEURL {
   // development
-  // static String baseURL = "http://192.168.43.30/api-bem/api";
-  // static String baseURLAssets = "http://192.168.43.30/api-bem/assets";
+  // static String baseURL = "http://192.168.79.147/api-bem/api";
+  // static String baseURLAssets = "http://192.168.79.147/api-bem/assets";
 
   // production
-  static String baseURL =
-      "https://ghaisan-alfarizqistore.000webhostapp.com/api";
+  static String baseURL = "https://good-sized-aids.000webhostapp.com/api";
   static String baseURLAssets =
-      "https://ghaisan-alfarizqistore.000webhostapp.com/assets";
+      "https://good-sized-aids.000webhostapp.com/assets";
 
   static String apiViewProposal = "$baseURLAssets/proposal/";
   static String apiViewLpjKegiatan = "$baseURLAssets/lpj_kegiatan/";
@@ -28,6 +27,8 @@ class BASEURL {
   static String apiFetchMeeting = "$baseURL/meetings/fetch_meeting.php";
   static String apiAddMeeting = "$baseURL/meetings/add_meeting.php";
   static String apiUpdateMeeting = "$baseURL/meetings/update_meeting.php";
+  static String addNotulen = "$baseURL/meetings/add_notulen.php";
+  static String fetchNotulen = "$baseURL/meetings/fetch_notulen.php";
   static String apiFetchEvents = "$baseURL/events/fetch_events.php";
   static String apiAddEvents = "$baseURL/events/add_events.php";
   static String apiUpdateEvents = "$baseURL/events/update_events.php";

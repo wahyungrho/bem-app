@@ -20,6 +20,8 @@ class ProposalModel {
   final String? pathFile;
   final String? costApprove;
   final String? costUse;
+  final String? costRemaining;
+  final String? costRemainungDescription;
   final String? pathFileEvent;
   final String? pathFileCost;
   final String? statusEvent;
@@ -44,6 +46,8 @@ class ProposalModel {
     this.pathFile,
     this.costApprove,
     this.costUse,
+    this.costRemaining,
+    this.costRemainungDescription,
     this.pathFileEvent,
     this.pathFileCost,
     this.statusEvent,
@@ -70,6 +74,8 @@ class ProposalModel {
       pathFile: json['pathFile'],
       costApprove: json['cost_approve'],
       costUse: json['cost_use'],
+      costRemaining: json['cost_remaining'],
+      costRemainungDescription: json['cost_remainung_description'],
       pathFileEvent: json['pathFileEvent'],
       pathFileCost: json['pathFileCost'],
       statusEvent: json['statusEvent'],

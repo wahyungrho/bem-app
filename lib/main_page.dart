@@ -10,6 +10,7 @@ enum DrawerSections {
   staff,
   users,
   meetings,
+  notula,
   internalEvents,
   externalEvents,
   proker,
@@ -19,7 +20,8 @@ enum DrawerSections {
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final DrawerSections? currentPage;
+  const MainPage({Key? key, this.currentPage}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -40,6 +42,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     getPreference();
+    currentPage = widget.currentPage ?? DrawerSections.home;
   }
 
   @override
@@ -65,21 +68,24 @@ class _MainPageState extends State<MainPage> {
                     currentPage = DrawerSections.meetings;
                     break;
                   case 5:
-                    currentPage = DrawerSections.internalEvents;
+                    currentPage = DrawerSections.notula;
                     break;
                   case 6:
-                    currentPage = DrawerSections.externalEvents;
+                    currentPage = DrawerSections.internalEvents;
                     break;
                   case 7:
-                    currentPage = DrawerSections.proker;
+                    currentPage = DrawerSections.externalEvents;
                     break;
                   case 8:
-                    currentPage = DrawerSections.proposal;
+                    currentPage = DrawerSections.proker;
                     break;
                   case 9:
-                    currentPage = DrawerSections.lpjReport;
+                    currentPage = DrawerSections.proposal;
                     break;
                   case 10:
+                    currentPage = DrawerSections.lpjReport;
+                    break;
+                  case 11:
                     currentPage = DrawerSections.profile;
                     break;
                 }
@@ -130,25 +136,29 @@ class _MainPageState extends State<MainPage> {
                 ? menuItem(4, "Jadwal Rapat", Icons.assignment_outlined,
                     currentPage == DrawerSections.meetings ? true : false)
                 : const SizedBox(),
-            menuItem(5, "Kegiatan Internal", Icons.event_available_outlined,
+            (roleID == '1' || roleID == '2')
+                ? menuItem(5, "Notulen Rapat", Icons.assignment_outlined,
+                    currentPage == DrawerSections.notula ? true : false)
+                : const SizedBox(),
+            menuItem(6, "Kegiatan Internal", Icons.event_available_outlined,
                 currentPage == DrawerSections.internalEvents ? true : false),
             (roleID == '1' || roleID == '2')
-                ? menuItem(6, "Kegiatan Eksternal", Icons.event_note_outlined,
+                ? menuItem(7, "Kegiatan Eksternal", Icons.event_note_outlined,
                     currentPage == DrawerSections.externalEvents ? true : false)
                 : const SizedBox(),
             const Divider(
               thickness: 1,
             ),
-            menuItem(7, "Usulan Program", Icons.file_copy_outlined,
+            menuItem(8, "Usulan Program", Icons.file_copy_outlined,
                 currentPage == DrawerSections.proker ? true : false),
-            menuItem(8, "Pengajuan Proposal", Icons.file_copy_outlined,
+            menuItem(9, "Pengajuan Proposal", Icons.file_copy_outlined,
                 currentPage == DrawerSections.proposal ? true : false),
-            menuItem(9, "Dokumen LPJ", Icons.upload_file_outlined,
+            menuItem(10, "Dokumen LPJ", Icons.upload_file_outlined,
                 currentPage == DrawerSections.lpjReport ? true : false),
             const Divider(
               thickness: 1,
             ),
-            menuItem(10, "Profil Saya", Icons.person_outline_rounded,
+            menuItem(11, "Profil Saya", Icons.person_outline_rounded,
                 currentPage == DrawerSections.profile ? true : false),
           ],
         ),
@@ -167,6 +177,9 @@ class _MainPageState extends State<MainPage> {
       setState(() {});
     } else if (currentPage == DrawerSections.meetings) {
       container = const MeetingPage();
+      setState(() {});
+    } else if (currentPage == DrawerSections.notula) {
+      container = const NotulenPage();
       setState(() {});
     } else if (currentPage == DrawerSections.internalEvents) {
       container = const InternalEventPage();

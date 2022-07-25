@@ -13,6 +13,9 @@ class _UploadLPJAnggaranState extends State<UploadLPJAnggaran> {
   bool? isLoading = false;
   TextEditingController costApproveController = TextEditingController();
   TextEditingController costUseController = TextEditingController();
+  TextEditingController costRemainingController = TextEditingController();
+  TextEditingController costRemainingDescriptionController =
+      TextEditingController();
   selectedFileAction() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -50,6 +53,7 @@ class _UploadLPJAnggaranState extends State<UploadLPJAnggaran> {
             ),
             child: TextField(
               controller: costApproveController,
+              keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 CurrencyFormat()
@@ -60,6 +64,19 @@ class _UploadLPJAnggaranState extends State<UploadLPJAnggaran> {
                 hintStyle: mediumFontStyle.copyWith(color: greyColor),
                 border: InputBorder.none,
               ),
+              onChanged: (value) {
+                setState(() {
+                  costRemainingController.text = (int.parse(
+                              (costApproveController.text == ""
+                                  ? "0"
+                                  : costApproveController.text
+                                      .replaceAll(',', ""))) -
+                          int.parse((costUseController.text == ""
+                              ? "0"
+                              : costUseController.text.replaceAll(',', ""))))
+                      .toString();
+                });
+              },
             ),
           ),
         ],
@@ -86,6 +103,7 @@ class _UploadLPJAnggaranState extends State<UploadLPJAnggaran> {
             ),
             child: TextField(
               controller: costUseController,
+              keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 CurrencyFormat()
@@ -96,7 +114,92 @@ class _UploadLPJAnggaranState extends State<UploadLPJAnggaran> {
                 hintStyle: mediumFontStyle.copyWith(color: greyColor),
                 border: InputBorder.none,
               ),
+              onChanged: (value) {
+                setState(() {
+                  costRemainingController.text = (int.parse(
+                              (costApproveController.text == ""
+                                  ? "0"
+                                  : costApproveController.text
+                                      .replaceAll(',', ""))) -
+                          int.parse((costUseController.text == ""
+                              ? "0"
+                              : costUseController.text.replaceAll(',', ""))))
+                      .toString();
+                });
+              },
             ),
+          ),
+        ],
+      );
+    }
+
+    Widget costRemainingTextField() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Sisa Anggaran",
+            style: boldFontStyle.copyWith(color: blackColor, fontSize: 16),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 50,
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            decoration: BoxDecoration(
+                border: Border.all(width: 1, color: const Color(0xffe5e5e5)),
+                borderRadius: BorderRadius.circular(8),
+                color: const Color(0xffe5e5e5)),
+            child: TextField(
+              controller: costRemainingController,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CurrencyFormat()
+              ],
+              readOnly: true,
+              style: mediumFontStyle.copyWith(color: blackColor),
+              decoration: InputDecoration(
+                hintStyle: mediumFontStyle.copyWith(color: blackColor),
+                border: InputBorder.none,
+                hintText: "Sisa Anggaran",
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    Widget costRemainingDescription() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Keterangan Sisa Anggaran",
+            style: boldFontStyle.copyWith(color: blackColor, fontSize: 16),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          TextField(
+            controller: costRemainingDescriptionController,
+            keyboardType: TextInputType.multiline,
+            style: mediumFontStyle.copyWith(color: greyColor),
+            maxLines: null,
+            decoration: InputDecoration(
+                hintText: "Keterangan Sisa Anggaran",
+                hintStyle: mediumFontStyle.copyWith(color: greyColor),
+                border: InputBorder.none,
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 1, color: Color(0xffe5e5e5)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 1, color: Color(0xffe5e5e5)),
+                  borderRadius: BorderRadius.circular(8),
+                )),
           ),
         ],
       );
@@ -160,6 +263,12 @@ class _UploadLPJAnggaranState extends State<UploadLPJAnggaran> {
                       content: Text("Please choose file !"),
                       backgroundColor: Color(0xffFF5677),
                     ));
+                  } else if (costRemainingDescriptionController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text(
+                          "Please field Keterangan Sisa Anggaran not empty !"),
+                      backgroundColor: Color(0xffFF5677),
+                    ));
                   } else if (costApproveController.text.isEmpty ||
                       costUseController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -178,6 +287,8 @@ class _UploadLPJAnggaranState extends State<UploadLPJAnggaran> {
                         selectedFile,
                         costApproveController.text.replaceAll(",", ""),
                         costUseController.text.replaceAll(",", ""),
+                        costRemainingController.text.replaceAll(",", ""),
+                        costRemainingDescriptionController.text,
                       );
                       if (response == null) {
                         ScaffoldMessenger.of(context)
@@ -215,23 +326,34 @@ class _UploadLPJAnggaranState extends State<UploadLPJAnggaran> {
           ));
     }
 
-    return Scaffold(
-      backgroundColor: whiteColor,
-      appBar: AppBar(
-        backgroundColor: mainColor,
-        title: const Text("Upload LPJ Anggaran"),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(
-          defaultMargin,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        backgroundColor: whiteColor,
+        appBar: AppBar(
+          backgroundColor: mainColor,
+          title: const Text("Upload LPJ Anggaran"),
         ),
-        child: Column(
+        body: ListView(
+          padding: EdgeInsets.all(
+            defaultMargin,
+          ),
           children: [
             costApproveTextField(),
             const SizedBox(
               height: 20,
             ),
             costUseTextField(),
+            const SizedBox(
+              height: 20,
+            ),
+            costRemainingTextField(),
+            const SizedBox(
+              height: 20,
+            ),
+            costRemainingDescription(),
             const SizedBox(
               height: 20,
             ),

@@ -31,8 +31,8 @@ class LPJServices with ChangeNotifier {
     }
   }
 
-  Future<String?> uploadLPJCost(
-      String? id, File? file, String? costApprove, String? costUse,
+  Future<String?> uploadLPJCost(String? id, File? file, String? costApprove,
+      String? costUse, String? costRemaining, String? costRemainungDescription,
       {http.Client? client}) async {
     client ??= http.Client();
     try {
@@ -42,6 +42,8 @@ class LPJServices with ChangeNotifier {
       request.fields['programID'] = id!;
       request.fields['costApprove'] = costApprove!;
       request.fields['costUse'] = costUse!;
+      request.fields['cost_remaining'] = costRemaining!;
+      request.fields['cost_remainung_description'] = costRemainungDescription!;
       var files = await http.MultipartFile.fromPath('file', file!.path);
       request.files.add(files);
 

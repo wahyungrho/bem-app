@@ -25,6 +25,10 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     roleID = sharedPreferences.getString(UserPrefProfile.idRole)!;
     userID = sharedPreferences.getString(UserPrefProfile.idUser)!;
+    if (kDebugMode) {
+      print(userID);
+      print(widget.proposalModel!.userID);
+    }
     setState(() {});
   }
 
@@ -746,6 +750,98 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
                                 decimalDigits: 0,
                                 symbol: 'Rp ')
                             .format(int.parse("${text.costUse}")),
+                    style: boldFontStyle.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget detailCostRemaining(ProposalModel text) {
+      return Container(
+        margin: const EdgeInsets.only(
+          top: 16,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.adjust,
+              color: mainColor,
+              size: 18,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Biaya Yang Tersisa :",
+                    style: mediumFontStyle.copyWith(
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    (text.costUse == "-")
+                        ? text.costRemaining!
+                        : NumberFormat.currency(
+                                locale: 'id_ID',
+                                decimalDigits: 0,
+                                symbol: 'Rp ')
+                            .format(int.parse("${text.costRemaining}")),
+                    style: boldFontStyle.copyWith(
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget detailCostRemainingDescription(ProposalModel text) {
+      return Container(
+        margin: const EdgeInsets.only(
+          top: 16,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.adjust,
+              color: mainColor,
+              size: 18,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Keterangan Sisa Biaya :",
+                    style: mediumFontStyle.copyWith(
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    text.costRemainungDescription!,
                     style: boldFontStyle.copyWith(
                       fontSize: 18,
                     ),
@@ -1560,6 +1656,16 @@ class _DetailUsulanPageState extends State<DetailUsulanPage> {
                                         height: 14,
                                       ),
                                       detailCostUse(widget.proposalModel!),
+                                      const SizedBox(
+                                        height: 14,
+                                      ),
+                                      detailCostRemaining(
+                                          widget.proposalModel!),
+                                      const SizedBox(
+                                        height: 14,
+                                      ),
+                                      detailCostRemainingDescription(
+                                          widget.proposalModel!),
                                       const SizedBox(
                                         height: 14,
                                       ),
